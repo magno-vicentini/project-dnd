@@ -1,8 +1,9 @@
 import { Schema } from 'mongoose';
-import IUser from '../interfaces/IUser'
+import IUser from '../interfaces/IUser';
 
-
-export const UserSchema = new Schema<IUser>({
+const UserSchema = new Schema<IUser>({
   email: { type: String, required: true },
-  name: { type: String, required: false }
+  name: { type: String, required: false },
 });
+
+export default UserSchema;

@@ -1,24 +1,12 @@
 import React, { useState } from 'react';
 import '../css/Login.css';
-import dndImage from '../images/dungeons-and-dragons.png';
-import { validEmail, validPassword } from '../regex';
 
-export default function Login() {
+export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function checkLogin() {
-    // console.log(validEmail.test(email));
-
-    if (!validEmail.test(email)) return true;
-    if (!validPassword.test(password)) return true;
-
-    return false;
-  }
-
   return (
     <div className="login-page">
-      <img src={dndImage} alt="DnD Icon" />
       <div className="login-container">
         <h1>D&D with Friends</h1>
         <label htmlFor="email-login">
@@ -43,7 +31,6 @@ export default function Login() {
             onChange={({ target }) => setPassword(target.value)}
           />
         </label>
-        <button type="button" disabled={checkLogin()}>Log In</button>
         <button type="button">Sign Up</button>
 
       </div>

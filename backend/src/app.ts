@@ -1,7 +1,7 @@
 import * as express from 'express';
 import routes from './routes';
 
-class App{
+class App {
   public app: express.Express;
 
   constructor() {
@@ -16,10 +16,10 @@ class App{
       res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
       res.header('Access-Control-Allow-Headers', '*');
       next();
-  }
+    };
 
-  this.app.use(accessControl);
-  this.app.use(express.json());
+    this.app.use(accessControl);
+    this.app.use(express.json());
   }
 
   private routerConfig(): void {
@@ -30,7 +30,6 @@ class App{
   public start(PORT: string | number):void {
     this.app.listen(PORT, () => console.log(`Server running in PORT ${PORT}`));
   }
-  
 }
 
-export { App };
+export default App;
