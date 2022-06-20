@@ -1,0 +1,30 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./build/server",
+  "scripts": {
+    "build": "tsc",
+    "start": "node .",
+    "predev": "npm run build ",
+    "dev": "ts-node ./src/server.ts",
+    "nodemon": "nodemon --watch \"./src/**\" --ext \"ts,js\" --ignore \"src/**/*.spec.ts,src/**/*.json\" --exec \"ts-node src/server.ts\""
+  },
+  "author": "Magno Vicentini Serra",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/node": "^18.0.0",
+    "nodemon": "2.0.15",
+    "ts-node": "10.7.0",
+    "ts-node-dev": "1.1.8",
+    "typescript": "4.4.4"
+  }
+}

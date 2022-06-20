@@ -1,0 +1,18 @@
+body {
+  background-color: #212121;
+  color: white;
+}
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  padding: 10%;
+}
