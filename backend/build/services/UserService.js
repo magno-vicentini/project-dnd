@@ -10,6 +10,7 @@ class UserService {
         return users;
     }
     async createUser(userData) {
+        console.log('service', userData);
         const user = await this.userModel.createUser(userData);
         return user;
     }

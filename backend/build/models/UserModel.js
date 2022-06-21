@@ -11,7 +11,9 @@ class UserModel {
         return users;
     }
     async createUser(userData) {
+        console.log('model', userData);
         const user = await this.userModel.create(userData);
+        console.log('return fron modelUser', user);
         return user;
     }
 }

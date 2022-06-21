@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const routes_1 = require("./routes");
+const connection_1 = require("./models/connection");
 class App {
     constructor() {
         this.app = express();
@@ -23,6 +24,7 @@ class App {
         this.app.use(routes_1.default);
     }
     start(PORT) {
+        (0, connection_1.default)();
         this.app.listen(PORT, () => console.log(`Server running in PORT ${PORT}`));
     }
 }

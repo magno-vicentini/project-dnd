@@ -1,11 +1,11 @@
 import * as express from 'express';
 import routes from './routes';
-import connection from './models/connection';
+import connectToDatabase from './models/connection';
 
 class App {
   public app: express.Express;
 
-  constructor(private _connection = connection()) {
+  constructor() {
     this.app = express();
     this.config();
     this.routerConfig();
@@ -29,6 +29,7 @@ class App {
   }
 
   public start(PORT: string | number):void {
+    connectToDatabase();
     this.app.listen(PORT, () => console.log(`Server running in PORT ${PORT}`));
   }
 }

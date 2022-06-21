@@ -16,6 +16,7 @@ class UserController {
         };
         this.create = async (req, res) => {
             try {
+                console.log(req.body);
                 const user = await this.userService.createUser(req.body);
                 return res.status(201).send(user);
             }

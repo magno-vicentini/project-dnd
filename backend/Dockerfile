@@ -1,6 +1,6 @@
 FROM node:16-alpine as app_backend
 
-WORKDIR /backend
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3001
 
-CMD ["npm", "start"]
+CMD ["npm","start"]
