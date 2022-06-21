@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import '../css/Login.css';
+import { useNavigate } from 'react-router-dom';
 import dndImage from '../images/dungeons-and-dragons.png';
 import { validEmail, validPassword } from '../regex';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   function checkLogin() {
     // console.log(validEmail.test(email));
@@ -44,7 +46,7 @@ export default function Login() {
           />
         </label>
         <button type="button" disabled={checkLogin()}>Log In</button>
-        <button type="button">Sign Up</button>
+        <button type="button" onClick={() => navigate('/signup')}>Sign Up</button>
 
       </div>
     </div>

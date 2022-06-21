@@ -4,11 +4,23 @@ import '../css/Login.css';
 export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
 
   return (
     <div className="login-page">
       <div className="login-container">
         <h1>D&D with Friends</h1>
+        <label htmlFor="user-name">
+          username:
+          <input
+            type="email"
+            name="user-name"
+            id=""
+            placeholder="username"
+            value={userName}
+            onChange={({ target }) => setUserName(target.value)}
+          />
+        </label>
         <label htmlFor="email-login">
           Email:
           <input

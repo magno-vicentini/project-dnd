@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.App = void 0;
 const express = require("express");
 const routes_1 = require("./routes");
 class App {
@@ -27,5 +26,5 @@ class App {
         this.app.listen(PORT, () => console.log(`Server running in PORT ${PORT}`));
     }
 }
-exports.App = App;
+exports.default = App;
 //# sourceMappingURL=app.js.map

@@ -3,12 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const UserSchema_1 = require("../schemas/UserSchema");
 class UserModel {
-    constructor(userModel = (0, mongoose_1.model)('users', UserSchema_1.UserSchema)) {
+    constructor(userModel = (0, mongoose_1.model)('users', UserSchema_1.default)) {
         this.userModel = userModel;
     }
-    async getBooks() {
-        const books = await this.userModel.find();
-        return books;
+    async getUsers() {
+        const users = await this.userModel.find();
+        return users;
+    }
+    async createUser(userData) {
+        const user = await this.userModel.create(userData);
+        return user;
     }
 }
 exports.default = UserModel;
