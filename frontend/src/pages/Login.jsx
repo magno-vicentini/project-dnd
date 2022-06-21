@@ -45,7 +45,7 @@ export default function Login() {
             onChange={({ target }) => setPassword(target.value)}
           />
         </label>
-        <button type="button" disabled={checkLogin()}>Log In</button>
+        <button type="button" onClick={() => checkLogin()}>Log In</button>
         <button type="button" onClick={() => navigate('/signup')}>Sign Up</button>
 
       </div>
