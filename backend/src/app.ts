@@ -1,10 +1,11 @@
 import * as express from 'express';
 import routes from './routes';
+import connection from './models/connection';
 
 class App {
   public app: express.Express;
 
-  constructor() {
+  constructor(private _connection = connection()) {
     this.app = express();
     this.config();
     this.routerConfig();

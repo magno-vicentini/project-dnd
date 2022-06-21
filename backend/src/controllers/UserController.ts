@@ -20,6 +20,7 @@ class UserController {
 
   public create = async (req: Request, res: Response): Promise<Response> => {
     try {
+      console.log(req.body);
       const user = await this.userService.createUser(req.body);
       return res.status(201).send(user);
     } catch (err: unknown) {
