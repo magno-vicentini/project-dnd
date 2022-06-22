@@ -16,6 +16,11 @@ class UserModel {
     console.log('return fron modelUser', user)
     return user;
   }
+
+  public async findUser(email: string): Promise<IUser | null> {
+    const user = await this.userModel.findOne({ email })
+    return user
+  }
 }
 
 export default UserModel;

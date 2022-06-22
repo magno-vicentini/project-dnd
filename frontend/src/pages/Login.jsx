@@ -3,19 +3,24 @@ import '../css/Login.css';
 import { useNavigate } from 'react-router-dom';
 import dndImage from '../images/dungeons-and-dragons.png';
 import { validEmail, validPassword } from '../regex';
+import fetchLogin from '../services/login';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  function checkLogin() {
-    // console.log(validEmail.test(email));
+  async function checkLogin() {
+    try {
+      if (!validEmail.test(email)) throw new Error('Email is not a válid email');
+      if (!validPassword.test(password)) throw new Error('Password is not a válid password');
 
-    if (!validEmail.test(email)) return true;
-    if (!validPassword.test(password)) return true;
+      await fetchLogin({ email });
 
-    return false;
+      return navigate('/signup');
+    } catch (err) {
+      return console.error(err);
+    }
   }
 
   return (

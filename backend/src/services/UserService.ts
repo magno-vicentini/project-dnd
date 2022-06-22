@@ -14,6 +14,11 @@ class UserService {
     const user = await this.userModel.createUser(userData);
     return user;
   }
+
+  public async findUser(email: string): Promise<IUser | null> {
+    const user = await this.userModel.findUser(email);
+    return user;
+  }
 }
 
 export default UserService;

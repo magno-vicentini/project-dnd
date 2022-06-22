@@ -7,7 +7,7 @@ services:
     container_name: dnd_frontend
     stdin_open: true
     volumes:
-      - ./project-DnD/frontend:/frontend
+      - ~/project-DnD/frontend:/app
     depends_on:
       backend:
         condition: service_healthy
