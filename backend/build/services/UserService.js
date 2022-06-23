@@ -14,6 +14,10 @@ class UserService {
         const user = await this.userModel.createUser(userData);
         return user;
     }
+    async findUser(email) {
+        const user = await this.userModel.findUser(email);
+        return user;
+    }
 }
 exports.default = UserService;
 //# sourceMappingURL=UserService.js.map

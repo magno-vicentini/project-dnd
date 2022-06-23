@@ -16,6 +16,10 @@ class UserModel {
         console.log('return fron modelUser', user);
         return user;
     }
+    async findUser(email) {
+        const user = await this.userModel.findOne({ email });
+        return user;
+    }
 }
 exports.default = UserModel;
 //# sourceMappingURL=UserModel.js.map

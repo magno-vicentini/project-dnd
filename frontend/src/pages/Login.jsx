@@ -3,7 +3,7 @@ import '../css/Login.css';
 import { useNavigate } from 'react-router-dom';
 import dndImage from '../images/dungeons-and-dragons.png';
 import { validEmail, validPassword } from '../regex';
-import fetchLogin from '../services/login';
+import { validateLogin } from '../services/login';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -15,7 +15,8 @@ export default function Login() {
       if (!validEmail.test(email)) throw new Error('Email is not a válid email');
       if (!validPassword.test(password)) throw new Error('Password is not a válid password');
 
-      await fetchLogin({ email });
+      const validLogin = await validateLogin({ email });
+      if (validLogin.message) return validLogin;
 
       return navigate('/wellcome');
     } catch (err) {
@@ -33,7 +34,6 @@ export default function Login() {
           <input
             type="email"
             name="email-login"
-            id=""
             placeholder="Email Address"
             value={email}
             onChange={({ target }) => setEmail(target.value)}
@@ -45,7 +45,6 @@ export default function Login() {
             type="password"
             name="pass-login"
             placeholder="Password"
-            id=""
             value={password}
             onChange={({ target }) => setPassword(target.value)}
           />

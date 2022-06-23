@@ -24,6 +24,20 @@ class UserController {
                 return res.status(500).send({ message: this.notFound });
             }
         };
+        this.findOne = async (req, res) => {
+            try {
+                const { email } = req.body;
+                console.log(email);
+                const user = await this.userService.findUser(email);
+                if (!user) {
+                    return res.status(404).send({ message: this.notFound });
+                }
+                return res.status(200).send(user);
+            }
+            catch (err) {
+                return res.status(500).send({ message: this.notFound });
+            }
+        };
     }
 }
 exports.default = UserController;

@@ -5,6 +5,6 @@ const UserSchema = new mongoose_1.Schema({
     username: { type: String, required: true },
     email: { type: String, required: true },
     name: { type: String, required: false },
-});
+}, { versionKey: false });
 exports.default = UserSchema;
 //# sourceMappingURL=UserSchema.js.map
