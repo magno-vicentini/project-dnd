@@ -17,7 +17,7 @@ export default function Login() {
 
       await fetchLogin({ email });
 
-      return navigate('/signup');
+      return navigate('/wellcome');
     } catch (err) {
       return console.error(err);
     }
