@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Login.css';
+import {
+  FormGroup, Label, Input, Form, Button,
+} from 'reactstrap';
 import { validEmail, validPassword } from '../regex';
 import { createUser, validateLogin } from '../services/login';
 
@@ -32,41 +35,44 @@ export default function SignUp() {
 
   return (
     <div className="login-page">
-      <div className="login-container">
+      <Form className="login-form">
         <h1>D&D with Friends</h1>
-        <label htmlFor="user-name">
-          username:
-          <input
+        <FormGroup>
+          <Label>username</Label>
+          <Input
             type="email"
-            name="user-name"
-            placeholder="username"
+            placeholder="Email"
             value={username}
             onChange={({ target }) => setUsername(target.value)}
           />
-        </label>
-        <label htmlFor="email-login">
-          Email:
-          <input
+        </FormGroup>
+        <FormGroup>
+          <Label>Email</Label>
+          <Input
             type="email"
-            name="email-login"
-            id=""
-            placeholder="Email Address"
+            placeholder="Email"
             value={email}
             onChange={({ target }) => setEmail(target.value)}
           />
-        </label>
-        <label htmlFor="pass-login">
-          Password:
-          <input
+        </FormGroup>
+        <FormGroup>
+          <Label>Password</Label>
+          <Input
             type="password"
             name="pass-login"
             placeholder="Password"
             value={password}
             onChange={({ target }) => setPassword(target.value)}
           />
-        </label>
-        <button type="button" onClick={() => checkSignUp()}>Sign Up</button>
-      </div>
+        </FormGroup>
+        <Button
+          className="btn-lg btn-block"
+          onClick={() => checkSignUp()}
+          color="success"
+        >
+          Sign up
+        </Button>
+      </Form>
     </div>
   );
 }

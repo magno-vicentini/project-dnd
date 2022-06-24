@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import '../css/Login.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
+import {
+  FormGroup, Label, Input, Form, Button,
+} from 'reactstrap';
 import dndImage from '../images/dungeons-and-dragons.png';
 import { validEmail, validPassword } from '../regex';
 import { validateLogin } from '../services/login';
@@ -27,32 +30,33 @@ export default function Login() {
   return (
     <div className="login-page">
       <img src={dndImage} alt="DnD Icon" />
-      <div className="login-container">
+      <Form className="login-form">
         <h1>D&D with Friends</h1>
-        <label htmlFor="email-login">
-          Email:
-          <input
+        <FormGroup>
+          <Label>Email</Label>
+          <Input
             type="email"
-            name="email-login"
-            placeholder="Email Address"
+            placeholder="Email"
             value={email}
             onChange={({ target }) => setEmail(target.value)}
           />
-        </label>
-        <label htmlFor="pass-login">
-          Password:
-          <input
+        </FormGroup>
+        <FormGroup>
+          <Label>Password</Label>
+          <Input
             type="password"
             name="pass-login"
             placeholder="Password"
             value={password}
             onChange={({ target }) => setPassword(target.value)}
           />
-        </label>
-        <button type="button" onClick={() => checkLogin()}>Log In</button>
-        <button type="button" onClick={() => navigate('/signup')}>Sign Up</button>
-
-      </div>
+        </FormGroup>
+        <Button className="btn-lg btn-block" onClick={() => checkLogin()}>Log in</Button>
+        <div className="text-center pt-3">Or</div>
+        <NavLink to="/signup">
+          Sign up
+        </NavLink>
+      </Form>
     </div>
   );
 }
