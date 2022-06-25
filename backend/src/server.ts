@@ -1,6 +1,15 @@
+import CustomRouter from './routes';
 import App from './app';
-import 'dotenv/config';
+import UserController from './controllers/UserController';
+import IUser from './interfaces/IUser';
 
-const PORT = process.env.PORT || 3001;
+const server = new App();
 
-new App().start(PORT);
+const userController = new UserController();
+
+const userRouter = new CustomRouter<IUser>();
+userRouter.addRoute(userController);
+
+server.addRouter(userRouter.router);
+
+export default server;

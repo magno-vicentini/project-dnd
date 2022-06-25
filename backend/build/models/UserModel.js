@@ -1,25 +1,14 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-const UserSchema_1 = require("../schemas/UserSchema");
-class UserModel {
-    constructor(userModel = (0, mongoose_1.model)('users', UserSchema_1.default)) {
-        this.userModel = userModel;
-    }
-    async getUsers() {
-        const users = await this.userModel.find();
-        return users;
-    }
-    async createUser(userData) {
-        console.log('model', userData);
-        const user = await this.userModel.create(userData);
-        console.log('return fron modelUser', user);
-        return user;
-    }
-    async findUser(email) {
-        const user = await this.userModel.findOne({ email });
-        return user;
+const UserSchema_1 = __importDefault(require("../schemas/UserSchema"));
+const MongoModels_1 = __importDefault(require("./MongoModels"));
+class UserModel extends MongoModels_1.default {
+    constructor(model = (0, mongoose_1.model)('users', UserSchema_1.default)) {
+        super(model);
     }
 }
 exports.default = UserModel;
-//# sourceMappingURL=UserModel.js.map

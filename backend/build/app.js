@@ -1,13 +1,14 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
-const routes_1 = require("./routes");
-const connection_1 = require("./models/connection");
+const express_1 = __importDefault(require("express"));
+const connection_1 = __importDefault(require("./models/connection"));
 class App {
     constructor() {
-        this.app = express();
+        this.app = (0, express_1.default)();
         this.config();
-        this.routerConfig();
     }
     config() {
         const accessControl = (_req, res, next) => {
@@ -17,16 +18,14 @@ class App {
             next();
         };
         this.app.use(accessControl);
-        this.app.use(express.json());
+        this.app.use(express_1.default.json());
     }
-    routerConfig() {
-        console.log('alou');
-        this.app.use(routes_1.default);
+    addRouter(router) {
+        this.app.use(router);
     }
-    start(PORT) {
+    startServer(PORT = 3001) {
         (0, connection_1.default)();
-        this.app.listen(PORT, () => console.log(`Server running in PORT ${PORT}`));
+        this.app.listen(PORT, () => console.log(`Server running here 👉 http://localhost:${PORT}`));
     }
 }
 exports.default = App;
-//# sourceMappingURL=app.js.map

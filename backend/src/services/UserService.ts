@@ -1,22 +1,25 @@
+import Service from '.';
 import IUser from '../interfaces/IUser';
 import UserModel from '../models/UserModel';
 
-class UserService {
-  constructor(private userModel = new UserModel()) {}
+class UserService extends Service<IUser> {
+  constructor(model = new UserModel()) {
+    super(model);
+  }
 
-  public async getUsers(): Promise<IUser[]> {
-    const users = await this.userModel.getUsers();
+  public async read(): Promise<IUser[]> {
+    const users = await this.model.read();
     return users;
   }
 
-  public async createUser(userData: object): Promise<IUser> {
+  public async create(userData: IUser): Promise<IUser> {
     console.log('service', userData);
-    const user = await this.userModel.createUser(userData);
+    const user = await this.model.create(userData);
     return user;
   }
 
-  public async findUser(email: string): Promise<IUser | null> {
-    const user = await this.userModel.findUser(email);
+  public async readOne(email: string): Promise<IUser | null> {
+    const user = await this.model.readOne(email);
     return user;
   }
 }

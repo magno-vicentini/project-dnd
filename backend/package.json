@@ -5,10 +5,10 @@
   "main": "./build/server",
   "scripts": {
     "build": "tsc",
-    "start": "node .",
+    "start": "ts-node ./src/index.ts",
     "predev": "npm run build ",
-    "dev": "ts-node ./src/server.ts",
-    "nodemon": "nodemon --watch \"./src/**\" --ext \"ts,js\" --ignore \"src/**/*.spec.ts,src/**/*.json\" --exec \"ts-node src/server.ts\""
+    "dev": "ts-node ./src/index.ts",
+    "nodemon": "nodemon --watch \"./src/**\" --ext \"ts,js\" --ignore \"src/**/*.spec.ts,src/**/*.json\" --exec \"ts-node src/index.ts\""
   },
   "author": "Magno Vicentini Serra",
   "license": "ISC",
@@ -16,11 +16,14 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "mongoose": "^6.4.0"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "6.1.8"
   },
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.29.0",

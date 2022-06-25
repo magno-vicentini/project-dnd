@@ -1,11 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const UserController_1 = require("../controllers/UserController");
-const routes = (0, express_1.Router)();
-const userController = new UserController_1.default();
-routes.get('/login', userController.getUsers);
-routes.post('/login', userController.findOne);
-routes.post('/signup', userController.create);
-exports.default = routes;
-//# sourceMappingURL=index.js.map
+class CustomRouter {
+    constructor() {
+        this.router = (0, express_1.Router)();
+    }
+    addRoute(controller, route = controller.route) {
+        this.router.post(route, controller.create);
+        this.router.get(route, controller.read);
+        this.router.get(`${route}/:id`, controller.readOne);
+        // this.router.put(`${route}/:id`, controller.update);
+        // this.router.delete(`${route}/:id`, controller.delete);
+    }
+}
+exports.default = CustomRouter;

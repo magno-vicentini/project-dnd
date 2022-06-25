@@ -1,44 +1,63 @@
 import { Request, Response } from 'express';
+import IUser from '../interfaces/IUser';
+import Controller, { RequestWithBody, ResponseError } from '.';
 import UserService from '../services/UserService';
 
-class UserController {
-  constructor(private userService = new UserService()) {}
+class UserController extends Controller<IUser> {
+  private $route: string;
 
-  notFound = 'User not found';
+  constructor(
+    service = new UserService(),
+    route = '/login',
+  ) {
+    super(service);
+    this.$route = route;
+  }
 
-  internalError: 'Internal server error';
+  get route() { return this.$route; }
 
-  public getUsers = async (req: Request, res: Response): Promise<Response> => {
+  public read = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const users = await this.userService.getUsers();
+      const users = await this.service.read();
 
       return res.status(200).send(users);
     } catch (err: unknown) {
-      return res.status(500).send({ message: this.internalError });
+      return res.status(500).send({ message: this.errors.internal });
     }
   };
 
-  public create = async (req: Request, res: Response): Promise<Response> => {
+  create = async (
+    req: RequestWithBody<IUser>,
+    res: Response<IUser | ResponseError>,
+  ): Promise<typeof res> => {
+    const { body } = req;
     try {
-      console.log(req.body);
-      const user = await this.userService.createUser(req.body);
-      return res.status(201).send(user);
-    } catch (err: unknown) {
-      return res.status(500).send({ message: this.notFound });
-    }
-  };
-
-  public findOne = async (req: Request, res: Response): Promise<Response> => {
-    try {
-      const { email } = req.body;
-      console.log(email);
-      const user = await this.userService.findUser(email);
+      const user = await this.service.create(body);
       if (!user) {
-        return res.status(404).send({ message: this.notFound });
+        return res.status(500).json({ error: this.errors.internal });
       }
-      return res.status(200).send(user);
-    } catch (err:unknown) {
-      return res.status(500).send({ message: this.notFound });
+      if ('error' in user) {
+        return res.status(400).json(user);
+      }
+      return res.status(201).json(user);
+    } catch (err) {
+      return res.status(500).json({ error: this.errors.internal });
+    }
+  };
+
+  readOne = async (
+    req:Request,
+    res: Response<IUser | ResponseError>,
+  ): Promise<typeof res> => {
+    const { id } = req.params;
+    try {
+      const findCar = await this.service.readOne(id);
+      if (!findCar) {
+        return res.status(404).json({ error: this.errors.notFound });
+      }
+      return res.status(200).json(findCar);
+    } catch (err) {
+      return res.status(500).json({ error: this.errors.internal });
     }
   };
 }

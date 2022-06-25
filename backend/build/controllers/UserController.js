@@ -1,44 +1,53 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const UserService_1 = require("../services/UserService");
-class UserController {
-    constructor(userService = new UserService_1.default()) {
-        this.userService = userService;
-        this.notFound = 'User not found';
-        this.getUsers = async (req, res) => {
+const _1 = __importDefault(require("."));
+const UserService_1 = __importDefault(require("../services/UserService"));
+class UserController extends _1.default {
+    constructor(service = new UserService_1.default(), route = '/login') {
+        super(service);
+        this.read = async (req, res) => {
             try {
-                const users = await this.userService.getUsers();
+                const users = await this.service.read();
                 return res.status(200).send(users);
             }
             catch (err) {
-                return res.status(500).send({ message: this.internalError });
+                return res.status(500).send({ message: this.errors.internal });
             }
         };
         this.create = async (req, res) => {
+            const { body } = req;
             try {
-                console.log(req.body);
-                const user = await this.userService.createUser(req.body);
-                return res.status(201).send(user);
-            }
-            catch (err) {
-                return res.status(500).send({ message: this.notFound });
-            }
-        };
-        this.findOne = async (req, res) => {
-            try {
-                const { email } = req.body;
-                console.log(email);
-                const user = await this.userService.findUser(email);
+                const user = await this.service.create(body);
                 if (!user) {
-                    return res.status(404).send({ message: this.notFound });
+                    return res.status(500).json({ error: this.errors.internal });
                 }
-                return res.status(200).send(user);
+                if ('error' in user) {
+                    return res.status(400).json(user);
+                }
+                return res.status(201).json(user);
             }
             catch (err) {
-                return res.status(500).send({ message: this.notFound });
+                return res.status(500).json({ error: this.errors.internal });
             }
         };
+        this.readOne = async (req, res) => {
+            const { id } = req.params;
+            try {
+                const findCar = await this.service.readOne(id);
+                if (!findCar) {
+                    return res.status(404).json({ error: this.errors.notFound });
+                }
+                return res.status(200).json(findCar);
+            }
+            catch (err) {
+                return res.status(500).json({ error: this.errors.internal });
+            }
+        };
+        this.$route = route;
     }
+    get route() { return this.$route; }
 }
 exports.default = UserController;
-//# sourceMappingURL=UserController.js.map

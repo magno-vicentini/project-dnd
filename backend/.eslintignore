@@ -1,7 +1,5 @@
-.eslintrc.js
 nyc.config.js
 node_modules/
 tests/
 build/
-models/
 ts.config.json

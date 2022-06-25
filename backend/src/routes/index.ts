@@ -1,11 +1,23 @@
 import { Router } from 'express';
-import UserController from '../controllers/UserController';
+import Controller from '../controllers';
 
-const routes = Router();
+class CustomRouter<T> {
+  public router: Router;
 
-const userController = new UserController();
+  constructor() {
+    this.router = Router();
+  }
 
-routes.get('/login', userController.getUsers);
-routes.post('/login', userController.findOne);
-routes.post('/signup', userController.create);
-export default routes;
+  public addRoute(
+    controller: Controller<T>,
+    route: string = controller.route,
+  ) {
+    this.router.post(route, controller.create);
+    this.router.get(route, controller.read);
+    this.router.get(`${route}/:id`, controller.readOne);
+    // this.router.put(`${route}/:id`, controller.update);
+    // this.router.delete(`${route}/:id`, controller.delete);
+  }
+}
+
+export default CustomRouter;

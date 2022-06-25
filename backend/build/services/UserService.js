@@ -1,23 +1,26 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const UserModel_1 = require("../models/UserModel");
-class UserService {
-    constructor(userModel = new UserModel_1.default()) {
-        this.userModel = userModel;
+const _1 = __importDefault(require("."));
+const UserModel_1 = __importDefault(require("../models/UserModel"));
+class UserService extends _1.default {
+    constructor(model = new UserModel_1.default()) {
+        super(model);
     }
-    async getUsers() {
-        const users = await this.userModel.getUsers();
+    async read() {
+        const users = await this.model.read();
         return users;
     }
-    async createUser(userData) {
+    async create(userData) {
         console.log('service', userData);
-        const user = await this.userModel.createUser(userData);
+        const user = await this.model.create(userData);
         return user;
     }
-    async findUser(email) {
-        const user = await this.userModel.findUser(email);
+    async readOne(email) {
+        const user = await this.model.readOne(email);
         return user;
     }
 }
 exports.default = UserService;
-//# sourceMappingURL=UserService.js.map

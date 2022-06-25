@@ -1,14 +1,12 @@
-import * as express from 'express';
-import routes from './routes';
+import express, { Express, Router } from 'express';
 import connectToDatabase from './models/connection';
 
 class App {
-  public app: express.Express;
+  public app: Express;
 
   constructor() {
     this.app = express();
     this.config();
-    this.routerConfig();
   }
 
   private config(): void {
@@ -23,14 +21,16 @@ class App {
     this.app.use(express.json());
   }
 
-  private routerConfig(): void {
-    console.log('alou');
-    this.app.use(routes);
+  public addRouter(router: Router): void {
+    this.app.use(router);
   }
 
-  public start(PORT: string | number):void {
+  public startServer(PORT: string | number = 3001): void {
     connectToDatabase();
-    this.app.listen(PORT, () => console.log(`Server running in PORT ${PORT}`));
+    this.app.listen(
+      PORT,
+      () => console.log(`Server running here 👉 http://localhost:${PORT}`),
+    );
   }
 }
 
