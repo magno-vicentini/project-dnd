@@ -11,8 +11,8 @@ abstract class Service<T> {
     return this.model.read();
   }
 
-  public async readOne(str: string): Promise<T | null > {
-    return this.model.readOne(str);
+  public async readOne(obj: object): Promise<T | null > {
+    return this.model.readOne(obj);
   }
 
   public async update(str: string, object: T):

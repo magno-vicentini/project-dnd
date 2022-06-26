@@ -1,16 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-class CustomRouter {
-    constructor() {
-        this.router = (0, express_1.Router)();
-    }
-    addRoute(controller, route = controller.route) {
-        this.router.post(route, controller.create);
-        this.router.get(route, controller.read);
-        this.router.get(`${route}/:id`, controller.readOne);
-        // this.router.put(`${route}/:id`, controller.update);
-        // this.router.delete(`${route}/:id`, controller.delete);
-    }
-}
-exports.default = CustomRouter;
+const loginRouter_1 = __importDefault(require("./loginRouter"));
+const routes = (0, express_1.Router)();
+routes.use('/login', loginRouter_1.default);
+exports.default = routes;

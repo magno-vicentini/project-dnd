@@ -18,8 +18,8 @@ class UserService extends _1.default {
         const user = await this.model.create(userData);
         return user;
     }
-    async readOne(email) {
-        const user = await this.model.readOne(email);
+    async readOne(obj) {
+        const user = await this.model.readOne(obj);
         return user;
     }
 }

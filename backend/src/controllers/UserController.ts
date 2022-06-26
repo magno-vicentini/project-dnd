@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import md5 from 'md5';
 import IUser from '../interfaces/IUser';
 import Controller, { RequestWithBody, ResponseError } from '.';
 import UserService from '../services/UserService';
@@ -16,7 +17,7 @@ class UserController extends Controller<IUser> {
 
   get route() { return this.$route; }
 
-  public read = async (req: Request, res: Response): Promise<Response> => {
+  public read = async (_req: Request, res: Response): Promise<Response> => {
     try {
       const users = await this.service.read();
 
@@ -30,14 +31,21 @@ class UserController extends Controller<IUser> {
     req: RequestWithBody<IUser>,
     res: Response<IUser | ResponseError>,
   ): Promise<typeof res> => {
-    const { body } = req;
+    const {
+      email, password, username, token,
+    } = req.body;
+    console.log(req.body);
     try {
-      const user = await this.service.create(body);
+      const encryptPass = md5(password);
+      const findUser = await this.service.readOne({ password: encryptPass, email });
+      if (findUser) {
+        return res.status(409).send({ error: this.errors.alreadyExist });
+      }
+      const user = await this.service.create({
+        password: encryptPass, email, username, token,
+      });
       if (!user) {
         return res.status(500).json({ error: this.errors.internal });
-      }
-      if ('error' in user) {
-        return res.status(400).json(user);
       }
       return res.status(201).json(user);
     } catch (err) {
@@ -49,13 +57,18 @@ class UserController extends Controller<IUser> {
     req:Request,
     res: Response<IUser | ResponseError>,
   ): Promise<typeof res> => {
-    const { id } = req.params;
+    const { password, email } = req.body;
+    console.log(req.body);
     try {
-      const findCar = await this.service.readOne(id);
-      if (!findCar) {
+      const encrypPass = md5(password);
+      console.log(encrypPass);
+
+      const findUser = await this.service.readOne({ password: encrypPass, email });
+      console.log(findUser);
+      if (!findUser) {
         return res.status(404).json({ error: this.errors.notFound });
       }
-      return res.status(200).json(findCar);
+      return res.status(200).json(findUser);
     } catch (err) {
       return res.status(500).json({ error: this.errors.internal });
     }

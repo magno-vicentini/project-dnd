@@ -5,6 +5,7 @@ var ControllerErrors;
     ControllerErrors["internal"] = "Internal Server Error";
     ControllerErrors["notFound"] = "Object not found";
     ControllerErrors["badRequest"] = "Bad request";
+    ControllerErrors["alreadyExist"] = "Already exists";
 })(ControllerErrors || (ControllerErrors = {}));
 class Controller {
     constructor(service) {

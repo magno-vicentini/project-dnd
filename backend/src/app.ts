@@ -1,5 +1,6 @@
-import express, { Express, Router } from 'express';
+import express, { Express } from 'express';
 import connectToDatabase from './models/connection';
+import routes from './routes';
 
 class App {
   public app: Express;
@@ -7,6 +8,7 @@ class App {
   constructor() {
     this.app = express();
     this.config();
+    this.configRoutes();
   }
 
   private config(): void {
@@ -21,16 +23,13 @@ class App {
     this.app.use(express.json());
   }
 
-  public addRouter(router: Router): void {
-    this.app.use(router);
+  public configRoutes(): void {
+    this.app.use(routes);
   }
 
-  public startServer(PORT: string | number = 3001): void {
+  public start(PORT: string | number):void {
     connectToDatabase();
-    this.app.listen(
-      PORT,
-      () => console.log(`Server running here 👉 http://localhost:${PORT}`),
-    );
+    this.app.listen(PORT, () => console.log(`Server running in PORT ${PORT}`));
   }
 }
 

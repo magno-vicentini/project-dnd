@@ -18,8 +18,8 @@ export default function SignUp() {
       if (!validEmail.test(email)) throw new Error('Email is not a válid email');
       if (!validPassword.test(password)) throw new Error('Password is not a válid password');
 
-      const validLogin = await validateLogin({ email });
-      if (!validLogin.message) return validLogin;
+      const validLogin = await validateLogin({ email, password });
+      if (!validLogin.error) return validLogin;
 
       await createUser({
         email,

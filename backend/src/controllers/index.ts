@@ -13,6 +13,7 @@ enum ControllerErrors {
   internal = 'Internal Server Error',
   notFound = 'Object not found',
   badRequest = 'Bad request',
+  alreadyExist = 'Already exists',
 }
 
 abstract class Controller<T> {

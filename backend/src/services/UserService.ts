@@ -18,8 +18,8 @@ class UserService extends Service<IUser> {
     return user;
   }
 
-  public async readOne(email: string): Promise<IUser | null> {
-    const user = await this.model.readOne(email);
+  public async readOne(obj: object): Promise<IUser | null> {
+    const user = await this.model.readOne(obj);
     return user;
   }
 }

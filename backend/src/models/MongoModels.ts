@@ -11,8 +11,8 @@ abstract class MongoModel<T> implements Model<T> {
     return createDoc;
   };
 
-  readOne = async (str: string): Promise<T | null> => {
-    const readDocument = await this.model.findById({ _id: str });
+  readOne = async (obj: object): Promise<T | null> => {
+    const readDocument = await this.model.findOne({ ...obj });
     return readDocument;
   };
 

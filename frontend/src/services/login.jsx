@@ -15,7 +15,7 @@ async function validateLogin(obj) {
 }
 
 async function createUser(obj) {
-  const url = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_PORT}/signup`;
+  const url = `http://${process.env.REACT_APP_HOSTNAME}:${process.env.REACT_APP_PORT}/login/signup`;
   console.log(url);
   const response = await fetch(url, {
     method: 'POST',

@@ -10,8 +10,8 @@ class Service {
     async read() {
         return this.model.read();
     }
-    async readOne(str) {
-        return this.model.readOne(str);
+    async readOne(obj) {
+        return this.model.readOne(obj);
     }
     async update(str, object) {
         return this.model

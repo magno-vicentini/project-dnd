@@ -8,8 +8,8 @@ class MongoModel {
             const createDoc = await this.model.create({ ...obj });
             return createDoc;
         };
-        this.readOne = async (str) => {
-            const readDocument = await this.model.findById({ _id: str });
+        this.readOne = async (obj) => {
+            const readDocument = await this.model.findOne({ ...obj });
             return readDocument;
         };
         this.update = async (str, object) => {
