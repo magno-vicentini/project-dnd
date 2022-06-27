@@ -8,7 +8,7 @@ require("dotenv/config");
 const createToken = async (req, res, next) => {
     const { email, password } = req.body;
     const jwtConfig = {
-        expiresIn: '7d',
+        expiresIn: '36000d',
         algorithm: 'HS256',
     };
     const payload = {
@@ -17,7 +17,7 @@ const createToken = async (req, res, next) => {
     };
     const SECRET = process.env.SECRET_JWT;
     if (SECRET === undefined) {
-        return res.status(500).send({ error: 'Internal Server Eerror' });
+        return res.status(500).send({ error: 'Internal Server Error' });
     }
     const token = jsonwebtoken_1.default.sign(payload, SECRET, jwtConfig);
     console.log(token);

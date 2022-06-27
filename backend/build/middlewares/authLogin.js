@@ -4,7 +4,10 @@ const jsonwebtoken_1 = require("jsonwebtoken");
 require("dotenv/config");
 const decodeToken = async (req, res, next) => {
     const token = req.headers.authorization;
-    const SECRET = process.env.SECRET_JWT || 'notFound';
+    const SECRET = process.env.SECRET_JWT;
+    if (SECRET === undefined) {
+        return res.status(500).send({ error: 'Internal Server Error' });
+    }
     if (!token) {
         return res.status(401).json({ message: 'Token not found' });
     }

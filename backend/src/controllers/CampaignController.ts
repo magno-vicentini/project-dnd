@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
-import md5 from 'md5';
-import IUser from '../interfaces/IUser';
 import Controller, { RequestWithBody, ResponseError } from '.';
-import UserService from '../services/UserService';
+import CampaignService from '../services/CampaignService';
+import ICampaign from '../interfaces/ICampaign';
 
-class UserController extends Controller<IUser> {
+class CampaignController extends Controller<ICampaign> {
   constructor(
-    service = new UserService(),
+    service = new CampaignService(),
   ) {
     super(service);
   }
@@ -22,22 +21,17 @@ class UserController extends Controller<IUser> {
   };
 
   create = async (
-    req: RequestWithBody<IUser>,
-    res: Response<IUser | ResponseError>,
+    req: RequestWithBody<ICampaign>,
+    res: Response<ICampaign | ResponseError>,
   ): Promise<typeof res> => {
-    const {
-      email, password, username, token,
-    } = req.body;
     console.log(req.body);
+    const { campaignName, userMaster } = req.body;
     try {
-      const encryptPass = md5(password);
-      const findUser = await this.service.readOne({ password: encryptPass, email });
+      const findUser = await this.service.readOne({ campaignName, userMaster });
       if (findUser) {
         return res.status(409).send({ error: this.errors.alreadyExist });
       }
-      const user = await this.service.create({
-        password: encryptPass, email, username, token,
-      });
+      const user = await this.service.create(req.body);
       if (!user) {
         return res.status(500).json({ error: this.errors.internal });
       }
@@ -49,15 +43,12 @@ class UserController extends Controller<IUser> {
 
   readOne = async (
     req:Request,
-    res: Response<IUser | ResponseError>,
+    res: Response<ICampaign | ResponseError>,
   ): Promise<typeof res> => {
-    const { password, email } = req.body;
+    const { campaignName, userMaster } = req.body;
     console.log(req.body);
     try {
-      const encrypPass = md5(password);
-      console.log(encrypPass);
-
-      const findUser = await this.service.readOne({ password: encrypPass, email });
+      const findUser = await this.service.readOne({ campaignName, userMaster });
       console.log(findUser);
       if (!findUser) {
         return res.status(404).json({ error: this.errors.notFound });
@@ -69,4 +60,4 @@ class UserController extends Controller<IUser> {
   };
 }
 
-export default UserController;
+export default CampaignController;

@@ -18,9 +18,13 @@ export default function Login() {
       if (!validEmail.test(email)) throw new Error('Email is not a válid email');
       if (!validPassword.test(password)) throw new Error('Password is not a válid password');
 
-      const validLogin = await validateLogin({ email });
-      if (validLogin.message) return validLogin;
+      const validLogin = await validateLogin({ email, password });
+      if (validLogin.error) return validLogin;
 
+      localStorage.setItem('user', JSON.stringify({
+        email: validLogin.email,
+        username: validLogin.username,
+      }));
       return navigate('/wellcome');
     } catch (err) {
       return console.error(err);
