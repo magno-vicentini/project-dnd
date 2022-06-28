@@ -7,6 +7,13 @@ class CampaignModel extends MongoModel<ICampaign> {
   constructor(model = createModel('campaign', CampaignSchema)) {
     super(model);
   }
+
+  findCampaigns = async (user: string): Promise<ICampaign[]> => this.model.find({
+    $or: [
+      { userMaster: user },
+      { usersCampaign: { $in: [user] } },
+    ],
+  });
 }
 
 export default CampaignModel;

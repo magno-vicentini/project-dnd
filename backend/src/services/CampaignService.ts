@@ -8,9 +8,14 @@ class CampaignService extends Service<ICampaign> {
   }
 
   public async read(): Promise<ICampaign[]> {
-    const users = await this.model.read();
-    return users;
+    const campaigns = await this.model.read();
+    return campaigns;
   }
+
+  // public async findCampaigns(username: string): Promise<ICampaign[]> {
+  //   const campaigns = await this.model.findCampaigns(username);
+  //   return campaigns;
+  // }
 
   public async create(userData: ICampaign): Promise<ICampaign> {
     console.log('service', userData);

@@ -12,9 +12,9 @@ class CampaignController extends Controller<ICampaign> {
 
   public read = async (_req: Request, res: Response): Promise<Response> => {
     try {
-      const users = await this.service.read();
+      const campaigns = await this.service.read();
 
-      return res.status(200).send(users);
+      return res.status(200).send(campaigns);
     } catch (err: unknown) {
       return res.status(500).send({ message: this.errors.internal });
     }
@@ -27,8 +27,8 @@ class CampaignController extends Controller<ICampaign> {
     console.log(req.body);
     const { campaignName, userMaster } = req.body;
     try {
-      const findUser = await this.service.readOne({ campaignName, userMaster });
-      if (findUser) {
+      const findCampaign = await this.service.readOne({ campaignName, userMaster });
+      if (findCampaign) {
         return res.status(409).send({ error: this.errors.alreadyExist });
       }
       const user = await this.service.create(req.body);
@@ -48,12 +48,12 @@ class CampaignController extends Controller<ICampaign> {
     const { campaignName, userMaster } = req.body;
     console.log(req.body);
     try {
-      const findUser = await this.service.readOne({ campaignName, userMaster });
-      console.log(findUser);
-      if (!findUser) {
+      const findCampaign = await this.service.readOne({ campaignName, userMaster });
+      console.log(findCampaign);
+      if (!findCampaign) {
         return res.status(404).json({ error: this.errors.notFound });
       }
-      return res.status(200).json(findUser);
+      return res.status(200).json(findCampaign);
     } catch (err) {
       return res.status(500).json({ error: this.errors.internal });
     }
